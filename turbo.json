@@ -4,6 +4,10 @@
     "build": {
       "outputs": ["dist/**"]
     },
+    "lint": {
+      "cache": false,
+      "outputs": []
+    },
     "check-types": {
       "dependsOn": ["^check-types"]
     },

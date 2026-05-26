@@ -7,6 +7,11 @@
   "publishConfig": {
     "access": "public"
   },
+  "exports": {
+    "./base": "./base.js",
+    "./hono": "./hono.js",
+    "./react": "./react.js"
+  },
   "dependencies": {
     "@hono/eslint-config": "^2.1.0",
     "eslint": "^10.4.0",
