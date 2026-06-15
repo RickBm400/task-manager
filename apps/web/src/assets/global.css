@@ -1,7 +1,10 @@
+@import "tailwindcss";
+
 :root {
-    --background-color: black
+    --background: white;
+    --background-gray: #eeeeee
 }
 
 body {
-    background-color: var(--background-color);
+    background-color: var(--background-gray);
 }
