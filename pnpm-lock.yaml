@@ -64,6 +64,9 @@ importers:
       '@repo/task-manager-types':
         specifier: workspace:*
         version: link:../../packages/task-manager-types
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../packages/typescript-config
       '@types/node':
         specifier: ^24.12.3
         version: 24.13.2
