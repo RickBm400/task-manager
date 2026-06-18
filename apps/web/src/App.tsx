@@ -1,5 +1,7 @@
+import type { Task } from "@repo/task-manager-types";
 import Button from "./components/Button";
 import TaskCard from "./components/TaskCard.component";
+import { TaskExamples } from "./constants/tasks";
 
 export function App() {
   return (
@@ -10,10 +12,9 @@ export function App() {
           <Button>+ Nueva Tarea</Button>
         </div>
         <section id="task-list" className="w-full mt-8 space-y-4">
-          <TaskCard priority="CRITIC" />
-          <TaskCard priority="HIGH" />
-          <TaskCard priority="MEDIUM" />
-          <TaskCard priority="LOW" />
+          {TaskExamples.map((task: Task) => (
+            <TaskCard task={task} />
+          ))}
         </section>
       </div>
     </div>
