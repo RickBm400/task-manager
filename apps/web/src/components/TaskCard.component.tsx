@@ -1,5 +1,5 @@
 import PriorityBadge from "./PriorityBadge";
-import type { Priority } from "../types/Task.types";
+import type { Priority } from "@repo/task-manager-types";
 
 export default function TaskCard(props: { priority: Priority }) {
   return (
