@@ -6,7 +6,7 @@ export default function TaskCard(props: { task: Task }) {
     <div className="bg-white p-4 rounded-lg shadow-md">
       <div className="flex justify-between items-center">
         <h3 className="text-lg font-semibold">{props.task.title}</h3>
-        <PriorityBadge priority={props.task.priority}></PriorityBadge>
+        <PriorityBadge priority={props.task.priority} />
       </div>
 
       <div className="w-full bg-gray-200 rounded border border-gray-300 mt-4 px-4 py-2">

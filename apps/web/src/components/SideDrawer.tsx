@@ -1,19 +1,29 @@
-import { useState, type ReactNode } from "react";
+import { type ReactNode } from "react";
 import { Drawer } from "antd";
 
-export default function SideDrawer(props: { children: ReactNode }) {
-  const [openDrawer, setOpenDrawer] = useState<boolean>(true);
+type SideDrawerProp = {
+  title?: string;
+  open: boolean;
+  onClose: Function;
+} & {
+  children: ReactNode;
+};
 
+export default function SideDrawer({
+  children,
+  title = "",
+  open = false,
+  onClose,
+}: SideDrawerProp) {
   return (
-    <>
-      <Drawer
-        title="Create new task"
-        placement="right"
-        open={openDrawer}
-        size={530}
-      >
-        {props.children}
-      </Drawer>
-    </>
+    <Drawer
+      title={title}
+      placement="right"
+      open={open}
+      size={530}
+      onClose={() => onClose()}
+    >
+      {children}
+    </Drawer>
   );
 }

@@ -4,9 +4,11 @@ import TaskCard from "./components/TaskCard";
 import { TaskExamples } from "./constants/tasks";
 import { useEffect, useState } from "react";
 import SideDrawer from "./components/SideDrawer";
+import DynamicForm from "./components/DynamicForm";
 
 export function App() {
   const [tasks, setTasks] = useState<Task[]>([]);
+  const [openTaskForm, setOpenTaskForm] = useState<boolean>(false);
 
   useEffect(() => {
     setTasks([...TaskExamples]);
@@ -18,7 +20,7 @@ export function App() {
         <h2 className="text-lg font-bold">Incidencias y tareas</h2>
 
         <div className="flex justify-between items-center">
-          <Button>+ Nueva Tarea</Button>
+          <Button onClick={() => setOpenTaskForm(true)}>+ Nueva Tarea</Button>
         </div>
 
         <section id="task-list" className="w-full mt-8 space-y-4">
@@ -27,8 +29,8 @@ export function App() {
           ))}
         </section>
       </div>
-      <SideDrawer>
-        <div>ola</div>
+      <SideDrawer open={openTaskForm} onClose={() => setOpenTaskForm(false)}>
+        <DynamicForm />
       </SideDrawer>
     </div>
   );
