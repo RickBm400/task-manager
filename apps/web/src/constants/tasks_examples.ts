@@ -19,13 +19,13 @@ export const TaskExamples: Task[] = [
     createdAt: new Date("2026-06-15T10:00:00Z"),
     priority: "MEDIUM",
   },
-  // {
-  //   title: "Probar Formulario",
-  //   description:
-  //     "Revisar validaciones y flujo de envío del formulario de contacto.",
-  //   createdAt: new Date("2026-06-16T11:45:00Z"),
-  //   priority: "LOW",
-  // },
+  {
+    title: "Probar Formulario",
+    description:
+      "Revisar validaciones y flujo de envío del formulario de contacto.",
+    createdAt: new Date("2026-06-16T11:45:00Z"),
+    priority: "LOW",
+  },
   // {
   //   title: "Optimizar Imágenes",
   //   description: "Comprimir y reemplazar archivos de imagen grandes en la web.",

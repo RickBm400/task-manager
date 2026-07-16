@@ -5,6 +5,7 @@ type SideDrawerProp = {
   title?: string;
   open: boolean;
   onClose: Function;
+  extra: ReactNode;
 } & {
   children: ReactNode;
 };
@@ -14,6 +15,7 @@ export default function SideDrawer({
   title = "",
   open = false,
   onClose,
+  extra,
 }: SideDrawerProp) {
   return (
     <Drawer
@@ -21,6 +23,7 @@ export default function SideDrawer({
       placement="right"
       open={open}
       size={530}
+      extra={extra}
       onClose={() => onClose()}
     >
       {children}

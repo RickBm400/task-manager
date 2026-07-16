@@ -2,22 +2,22 @@ import type { Priority } from "@repo/task-manager-types";
 
 const TaskStatus = {
   CRITIC: {
-    name: "Crítica",
+    name: "Critic",
     color: "bg-red-200",
     textColor: "text-red-900",
   },
   HIGH: {
-    name: "Alta",
+    name: "High",
     color: "bg-orange-200",
     textColor: "text-orange-900",
   },
   MEDIUM: {
-    name: "Media",
+    name: "Medium",
     color: "bg-yellow-200",
     textColor: "text-yellow-700",
   },
   LOW: {
-    name: "Baja",
+    name: "Low",
     color: "bg-blue-200",
     textColor: "text-blue-900",
   },
