@@ -3,6 +3,7 @@ import Button from "./components/Button";
 import TaskCard from "./components/TaskCard";
 import { TaskExamples } from "./constants/tasks";
 import { useEffect, useState } from "react";
+import SideDrawer from "./components/SideDrawer";
 
 export function App() {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -26,6 +27,9 @@ export function App() {
           ))}
         </section>
       </div>
+      <SideDrawer>
+        <div>ola</div>
+      </SideDrawer>
     </div>
   );
 }
