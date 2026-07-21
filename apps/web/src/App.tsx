@@ -24,7 +24,7 @@ export function App() {
   return (
     <div className="App w-screen h-screen grid place-items-center">
       <div className=" bg-white w-6xl p-8 rounded-lg shadow-lg space-y-2">
-        <h2 className="text-lg font-bold">Incidencias y tareas</h2>
+        <h2 className="text-lg font-semibold">Incidencias y tareas</h2>
 
         <div className="flex justify-between items-center">
           <Button type="primary" onClick={() => setOpenTaskForm(true)}>

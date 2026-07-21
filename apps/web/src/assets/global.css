@@ -1,11 +1,18 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
 @import "tailwindcss";
 
 :root {
-    --background: white;
-    --background-gray: #eeeeee
+  --background: white;
+  --background-gray: #eeeeee;
 }
 
 body {
-    background-color: var(--background-gray);
-    font-family: monospace;
+  background-color: var(--background-gray);
+  font-family: monospace;
+
+  font-family: "DM Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+  font-size: 14px;
 }
