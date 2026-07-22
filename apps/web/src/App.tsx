@@ -5,6 +5,7 @@ import { useState, type ReactNode } from "react";
 import SideDrawer from "./components/SideDrawer";
 import DynamicForm from "./components/DynamicForm";
 import useTasks from "./hooks/useTasks";
+import { SearchPanel } from "./components/SearchPanel";
 
 export function App() {
   const [openTaskForm, setOpenTaskForm] = useState<boolean>(false);
@@ -26,11 +27,15 @@ export function App() {
       <div className=" bg-white w-6xl p-8 rounded-lg shadow-lg space-y-2">
         <h2 className="text-lg font-semibold">Incidencias y tareas</h2>
 
-        <div className="flex justify-between items-center">
+        <section id="search-panel">
+          <SearchPanel />
+        </section>
+
+        {/* <div className="flex justify-between items-center">
           <Button type="primary" onClick={() => setOpenTaskForm(true)}>
             + Nueva Tarea
           </Button>
-        </div>
+        </div> */}
 
         <section id="task-list" className="w-full mt-8 space-y-4">
           {taskList.map((task: Task) => (

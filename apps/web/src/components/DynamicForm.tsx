@@ -1,21 +1,9 @@
 import type { Priority } from "@repo/task-manager-types";
 import { Form, Input, Select, type SelectProps } from "antd";
 import PriorityBadge from "./PriorityBadge";
+import { StatusOptions } from "../types/tasks.styles";
 
 type LabelRender = SelectProps["optionRender"];
-
-interface SelectOptions {
-  value: Priority;
-  label: string;
-  disabled?: boolean;
-}
-
-const StatusOptions: SelectOptions[] = [
-  { value: "CRITIC", label: "Critic" },
-  { value: "HIGH", label: "Hight" },
-  { value: "MEDIUM", label: "Medium" },
-  { value: "LOW", label: "Low" },
-];
 
 export default function DynamicForm() {
   const [form] = Form.useForm();
