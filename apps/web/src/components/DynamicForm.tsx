@@ -1,7 +1,7 @@
 import type { Priority } from "@repo/task-manager-types";
 import { Form, Input, Select, type SelectProps } from "antd";
 import PriorityBadge from "./PriorityBadge";
-import { StatusOptions } from "../types/tasks.styles";
+import { StatusOptions } from "../types/tasks.types";
 
 type LabelRender = SelectProps["optionRender"];
 
