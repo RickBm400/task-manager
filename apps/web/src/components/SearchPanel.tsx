@@ -22,14 +22,11 @@ export function SearchPanel({
   return (
     <div className="flex justify-between">
       <div id="inputs" className="flex gap-4 grow">
-        <Input
+        <Input.Search
           name="search-input"
           placeholder="Search task"
           value={search}
           onChange={onInputChange}
-          style={{
-            width: "70%",
-          }}
         />
         <Select
           placeholder="Priority"

@@ -1,3 +1,4 @@
+import { formatDate } from "../utils/dates";
 import PriorityBadge from "./PriorityBadge";
 import type { Task } from "@repo/task-manager-types";
 
@@ -16,7 +17,7 @@ export default function TaskCard(props: { task: Task }) {
       </div>
       <span className="text-sm text-gray-500">
         {/* TODO: Implement moment ts for parse dates */}
-        Fecha de creación: {props.task.createdAt.toISOString()}
+        Fecha de creación: {formatDate(props.task.createdAt)}.
       </span>
     </div>
   );
