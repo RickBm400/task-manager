@@ -1,8 +1,11 @@
 {
-  "extends": "@repo/typescript-config/hono.json",
+  "extends": "../../packages/typescript-config/hono.json",
   "compilerOptions": {
-    "target": "ESNext",
     "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "target": "ES2022",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "strict": true,
     "verbatimModuleSyntax": true,
     "skipLibCheck": true,
