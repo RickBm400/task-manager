@@ -1,5 +1,7 @@
 import { createRequire } from 'node:module';
+import type Nedb from '@seald-io/nedb';
 import path from 'node:path';
+import TraceLog from '../../../shared/utils/TraceLogs.js';
 
 // node function for create a compatible require import
 const require = createRequire(import.meta.url);
@@ -8,17 +10,39 @@ const require = createRequire(import.meta.url);
 const Datastore =
   require('@seald-io/nedb') as typeof import('@seald-io/nedb').default;
 
-// base user example
-type User = { name: string; age: number };
+// NeDB local class
+export default class NeDBClass {
+  users!: Nedb.default;
+  tasks!: Nedb.default;
 
-// db initialization
-const db = new Datastore<User>({
-  filename: path.join(process.cwd(), 'store', 'users.db'),
-});
+  constructor() {
+    const collections = ['users', 'tasks'] as const;
 
-// load db and set new data
-await db.loadDatabaseAsync();
-await db.insertAsync({ name: 'bob', age: 19 });
+    for (const collection of collections) {
+      this[collection] = new Datastore(this.$_setDSTConfig(collection));
+    }
 
-// debug
-console.log(await db.findAsync({ name: 'bob' }));
+    TraceLog.create({
+      target: 'NeDB',
+      context: 'Dabatabe initialized',
+    });
+  }
+
+  private $_setDSTConfig(fileName: string): Nedb.default.DataStoreOptions {
+    return {
+      filename: path.join(process.cwd(), 'db_store', `${fileName}.db`),
+    };
+  }
+
+  async initializeCluster(): Promise<NeDBClass> {
+    const dbs: Nedb.default[] = Object.values(this);
+    await Promise.all(dbs.map((db) => db.loadDatabaseAsync()));
+    return this;
+  }
+}
+
+// const cluster = new NeDBClass();
+
+// await cluster.initializeCluster();
+// await cluster.tasks.insertAsync({ name: 'juan', type: 'doctor' });
+// console.log(await cluster.tasks.findAsync({ name: 'juan' }));
