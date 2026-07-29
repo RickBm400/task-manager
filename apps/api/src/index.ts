@@ -28,10 +28,8 @@ serve(
     port: 3000,
   },
   async (info) => {
-    const cluster = await new NeDBClass().initializeCluster();
+    await new NeDBClass().initializeCluster();
 
-    await cluster.tasks.insertAsync({ tasks: 'local' });
-    await cluster.users.insertAsync({ users: 'local' });
     TraceLog.create({
       context: `Server is running on localhost:${info.port}`,
       target: process.env.NODE_ENV,
