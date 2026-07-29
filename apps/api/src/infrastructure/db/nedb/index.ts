@@ -22,9 +22,8 @@ export default class NeDBClass {
       this[collection] = new Datastore(this.$_setDSTConfig(collection));
     }
 
-    TraceLog.create({
+    TraceLog.create('Dabatabe initialized', {
       target: 'NeDB',
-      context: 'Dabatabe initialized',
     });
   }
 

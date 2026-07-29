@@ -30,9 +30,13 @@ serve(
   async (info) => {
     await new NeDBClass().initializeCluster();
 
-    TraceLog.create({
-      context: `Server is running on localhost:${info.port}`,
+    TraceLog.create(`Server is running on localhost:${info.port}`, {
       target: process.env.NODE_ENV,
+      metadata: {
+        message: 'This is the metadata',
+      },
     });
+
+    TraceLog.create('Log texto');
   },
 );
