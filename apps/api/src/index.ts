@@ -1,6 +1,8 @@
 import { serve } from '@hono/node-server';
 import { swaggerUI } from '@hono/swagger-ui';
 import { Hono } from 'hono';
+import NeDBClass from './infrastructure/db/nedb/index.js';
+import TraceLog from './shared/utils/TraceLogs.js';
 
 const app = new Hono();
 
@@ -25,7 +27,14 @@ serve(
     fetch: app.fetch,
     port: 3000,
   },
-  (info) => {
-    console.log(`Server is running on http://localhost:${info.port}`);
+  async (info) => {
+    const cluster = await new NeDBClass().initializeCluster();
+
+    await cluster.tasks.insertAsync({ tasks: 'local' });
+    await cluster.users.insertAsync({ users: 'local' });
+    TraceLog.create({
+      context: `Server is running on localhost:${info.port}`,
+      target: process.env.NODE_ENV,
+    });
   },
 );
