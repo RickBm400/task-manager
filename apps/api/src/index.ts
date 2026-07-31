@@ -28,13 +28,14 @@ serve(
     port: 3000,
   },
   async (info) => {
-    await new NeDBClass().initializeCluster();
+    const db = await new NeDBClass().initializeCluster();
+    console.log(await db.model('users').findAsync({}));
+    console.log(await db.model('users').findAsync({}));
+    const users = db.model('users');
 
+    await users.findAsync({});
     TraceLog.create(`Server is running on localhost:${info.port}`, {
       target: process.env.NODE_ENV,
-      metadata: {
-        message: 'This is the metadata',
-      },
     });
 
     TraceLog.create('Log texto');
