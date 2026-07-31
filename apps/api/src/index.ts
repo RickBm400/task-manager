@@ -1,8 +1,8 @@
 import { serve } from '@hono/node-server';
 import { swaggerUI } from '@hono/swagger-ui';
 import { Hono } from 'hono';
-import NeDBClass from './infrastructure/db/nedb/index.js';
 import TraceLog from './shared/utils/TraceLogs.js';
+import db from './infrastructure/db/nedb/example.js';
 
 const app = new Hono();
 
@@ -28,12 +28,7 @@ serve(
     port: 3000,
   },
   async (info) => {
-    const db = await new NeDBClass().initializeCluster();
-    console.log(await db.model('users').findAsync({}));
-    console.log(await db.model('users').findAsync({}));
-    const users = db.model('users');
-
-    await users.findAsync({});
+    await db.initCluster();
     TraceLog.create(`Server is running on localhost:${info.port}`, {
       target: process.env.NODE_ENV,
     });

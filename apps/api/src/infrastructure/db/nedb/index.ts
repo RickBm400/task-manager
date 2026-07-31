@@ -1,7 +1,8 @@
 import { createRequire } from 'node:module';
-import type Nedb from '@seald-io/nedb';
 import path from 'node:path';
 import TraceLog from '../../../shared/utils/TraceLogs.js';
+import Model from './model.class.js';
+import type { IDatabase } from '../../../types/infrastructure/database.types.js';
 
 // node function for create a compatible require import
 const require = createRequire(import.meta.url);
@@ -10,47 +11,35 @@ const require = createRequire(import.meta.url);
 const Datastore =
   require('@seald-io/nedb') as typeof import('@seald-io/nedb').default;
 
-const collections = ['users', 'tasks'] as const;
-
 // NeDB local class
-export default class NeDBClass {
-  private _localCollections: Record<string, Nedb.default> = {};
+export class NeDBClass implements IDatabase {
+  private _localCollections: Record<string, Model<any>> = {};
 
   constructor() {
-    for (const collection of collections) {
-      this._localCollections[collection] = new Datastore(
-        this.$_setDSTConfig(collection),
-      );
-    }
-
-    TraceLog.create('Dabatabe initialized', {
+    TraceLog.create('Dabatabe created', {
       target: 'NeDB',
     });
   }
 
-  private $_setDSTConfig(fileName: string): Nedb.default.DataStoreOptions {
+  private $_setDataStorageConfig(fileName: string) {
     return {
       filename: path.join(process.cwd(), 'db_store', `${fileName}.db`),
     };
   }
 
-  async initializeCluster(): Promise<NeDBClass> {
-    const dbs: Nedb.default[] = Object.values(this._localCollections);
-    await Promise.all(dbs.map((db) => db.loadDatabaseAsync()));
+  async initCluster(): Promise<NeDBClass> {
+    const dbs: Model<any>[] = Object.values(this._localCollections);
+    await Promise.all(dbs.map((db) => db.load()));
     return this;
   }
 
-  model(collection: (typeof collections)[number]) {
-    if (!collection) throw new Error('Fail to load collection');
-    if (!Object.hasOwn(this._localCollections, collection))
-      throw new Error('Can not find resource');
+  model<T extends object>(name: string): Model<T> {
+    if (!this._localCollections[name]) {
+      const datastore = new Datastore<T>(this.$_setDataStorageConfig(name));
 
-    return this._localCollections[collection] as Nedb.default;
+      this._localCollections[name] = new Model(datastore);
+    }
+
+    return this._localCollections[name] as Model<T>;
   }
 }
-
-// const cluster = new NeDBClass();
-
-// await cluster.initializeCluster();
-// await cluster.tasks.insertAsync({ name: 'juan', type: 'doctor' });
-// console.log(await cluster.tasks.findAsync({ name: 'juan' }));
