@@ -2,7 +2,7 @@
   "name": "task-manager-api",
   "type": "module",
   "scripts": {
-    "dev": "tsx watch src/index.ts",
+    "dev": "tsx watch --inspect src/index.ts",
     "build": "tsc",
     "start": "node dist/index.js",
     "lint": "eslint src"

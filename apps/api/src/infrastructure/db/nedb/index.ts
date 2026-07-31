@@ -12,12 +12,13 @@ const Datastore =
   require('@seald-io/nedb') as typeof import('@seald-io/nedb').default;
 
 // NeDB local class
-export class NeDBClass implements IDatabase {
+class NeDBClass implements IDatabase {
   private _localCollections: Record<string, Model<any>> = {};
 
   constructor() {
-    TraceLog.create('Dabatabe created', {
+    TraceLog.create('Dabatabe instance created', {
       target: 'NeDB',
+      level: 'DEBUG',
     });
   }
 
@@ -29,7 +30,9 @@ export class NeDBClass implements IDatabase {
 
   async initCluster(): Promise<NeDBClass> {
     const dbs: Model<any>[] = Object.values(this._localCollections);
-    await Promise.all(dbs.map((db) => db.load()));
+    await Promise.all(dbs.map((db) => db.load())).then(() => {
+      TraceLog.create('Cluster init', { target: 'NeDb' });
+    });
     return this;
   }
 
@@ -43,3 +46,7 @@ export class NeDBClass implements IDatabase {
     return this._localCollections[name] as Model<T>;
   }
 }
+
+const $_db = new NeDBClass();
+
+export default $_db;

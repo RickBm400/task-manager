@@ -12,7 +12,11 @@ export default class Model<T extends object> implements IModel<T> {
   }
 
   async insert(doc: T) {
-    return this.datastore.insertAsync(doc);
+    return this.datastore.insertAsync({
+      ...doc,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
   }
 
   async find(query: Partial<T> = {}) {
