@@ -3,8 +3,8 @@ import { swaggerUI } from '@hono/swagger-ui';
 import { Hono } from 'hono';
 import TraceLog from './src/shared/utils/TraceLogs.js';
 import $_db from './src/infrastructure/db/nedb/index.js';
-import { CTasks, TaskModel } from './src/components/tasks/model.js';
 import tasks from '@/components/tasks/router.js';
+import logsMiddleware from '@/shared/utils/logs.middleware.js';
 
 const app = new Hono();
 
@@ -17,6 +17,8 @@ const openApiDoc = {
   },
   paths: {},
 };
+
+app.use(logsMiddleware());
 
 app.route('/', tasks);
 
