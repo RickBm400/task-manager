@@ -1,9 +1,10 @@
 import { serve } from '@hono/node-server';
 import { swaggerUI } from '@hono/swagger-ui';
 import { Hono } from 'hono';
-import TraceLog from './shared/utils/TraceLogs.js';
-import $_db from './infrastructure/db/nedb/index.js';
-import { CTasks, TaskModel } from './components/tasks/model.js';
+import TraceLog from './src/shared/utils/TraceLogs.js';
+import $_db from './src/infrastructure/db/nedb/index.js';
+import { CTasks, TaskModel } from './src/components/tasks/model.js';
+import tasks from '@/components/tasks/router.js';
 
 const app = new Hono();
 
@@ -17,29 +18,13 @@ const openApiDoc = {
   paths: {},
 };
 
+app.route('/', tasks);
+
 app.get('/doc', (c) => c.json(openApiDoc));
 
 app.get('/ui', swaggerUI({ url: '/doc' }));
 
 app.get('/health', (c) => c.text('OK'));
-
-app.get('/test', async (c) => {
-  TraceLog.create('llega acá', {
-    target: c.req.method + ' ' + c.req.path,
-  });
-  const task = await TaskModel.insert({
-    title: 'meteora',
-    description: 'na',
-    priority: 'CRITIC',
-  });
-  const taskInserted = CTasks.create(task);
-
-  TraceLog.create('Task created', {
-    metadata: task,
-  });
-
-  return c.json({ message: 'Task created', data: taskInserted.toJSON() });
-});
 
 serve(
   {

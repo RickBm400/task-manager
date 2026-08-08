@@ -1,6 +1,5 @@
 import type { Priority } from '@repo/task-manager-types';
-import $_db from '../../infrastructure/db/nedb/index.js';
-import TraceLog from '../../shared/utils/TraceLogs.js';
+import $_db from '@/infrastructure/db/nedb/index.js';
 
 export interface ITask {
   _id?: string;

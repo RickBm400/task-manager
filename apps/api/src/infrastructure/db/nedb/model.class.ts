@@ -2,7 +2,7 @@ import type Nedb from '@seald-io/nedb';
 import type {
   IModel,
   IModelUpdateOptions,
-} from '../../../types/infrastructure/database.types.js';
+} from '@/types/infrastructure/database.types.js';
 
 export default class Model<T extends object> implements IModel<T> {
   constructor(private readonly datastore: Nedb.default<T>) {}
